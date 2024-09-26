@@ -19,7 +19,7 @@ import Loader from "./components/Loader";
 function App() {
   const store = notesStore();
   const AuthStore = authStore();
-
+  const [loading , setLoading] = useState(false);
   useEffect(() => {
     store.fetchNotes();
   }, [AuthStore.loggedIn]);
@@ -29,7 +29,7 @@ function App() {
      AuthStore.checkAuth(); 
   }, );
 
-  if (AuthStore.loggedIn === null) {
+  if (AuthStore.loggedIn === null || loading) {
     return <Loader />;
   }
 

@@ -3,6 +3,7 @@ import { create } from "zustand";
 
 
 const authStore = create((set) => ({
+  name : localStorage.getItem('name'),
   loggedIn: null,
   loginForm: {
     email: "",
@@ -44,10 +45,13 @@ const authStore = create((set) => ({
     const { loginForm } = authStore.getState();
 
     const res = await axios.post("/login", loginForm);
-
+    // console.log("user details", res.data.user.name)
     set({
       loggedIn: true,
+      name : res.data.user.name
     });
+
+    localStorage.setItem("name", res.data.user.name);
 
     set({
       loginForm: {
