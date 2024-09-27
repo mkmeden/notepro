@@ -10,8 +10,6 @@ import CustomModal from "../components/Modal/CustomModal";
 import UpdateModal from "../components/Modal/UpdateModal";
 import authStore from "../stores/authStore";
 const Home = () => {
-
-
   const {
     isOpen: isFirstModalOpen,
     onOpen: onFirstModalOpen,
@@ -26,9 +24,8 @@ const Home = () => {
 
   const store = notesStore();
   console.log("notes", store.notes.length);
-  const AuthStore=  authStore();
+  const AuthStore = authStore();
 
-  
   return (
     <motion.div
       animate={{
@@ -64,7 +61,7 @@ const Home = () => {
           <Logout />
         </div>
 
-        <div className="mx-24 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-4 font-mont h-[70vh] overflow-y-auto">
+        <div className="mx-24 grid grid-cols-1 sm:grid-cols-1 md :grid-cols -3  lg:grid-cols-4 gap-6 p-4 font-mont h-[80%] overflow-y-auto">
           {store.notes.length == 0 ? (
             <motion.h1
               animate={{
@@ -80,15 +77,7 @@ const Home = () => {
             </motion.h1>
           ) : (
             store.notes.map((note) => (
-              <button
-              className="flex items-center justify-center"
-                onClick={() => {
-                  onSecondModalOpen();
-                  store.toggleUpdate(note);
-                }}
-              >
-                <Card title={note.title} body={note.body} />
-              </button>
+              <Card note= {note} />
             ))
           )}
         </div>
@@ -98,11 +87,7 @@ const Home = () => {
         onOpen={onFirstModalOpen}
         onClose={onFirstModalClose}
       />
-      <UpdateModal
-        isOpen={isSecondModalOpen}
-        onOpen={onSecondModalOpen}
-        onClose={onSecondModalClose}
-      />
+
     </motion.div>
   );
 };

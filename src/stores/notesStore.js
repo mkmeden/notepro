@@ -48,15 +48,20 @@ const notesStore = create((set) => ({
   createNote: async (e) => {
     e.preventDefault();
 
-    const { createForm, notes } = notesStore.getState();
-    const res = await axios.post("/notes", createForm);
-    const newNotes = notes ===null ?[] : notes;
-    newNotes.push(res.data.note);
+    try {
+      const { createForm, notes } = notesStore.getState();
+      const res = await axios.post("/notes", createForm);
+      const newNotes = notes ===null ?[] : notes;
+      newNotes.push(res.data.note);
+  
+      set({
+        notes: newNotes,
+        createForm: { title: "", body: "" },
+      });
+    } catch (error) {
+      console.log(error.message)
+    }
 
-    set({
-      notes: newNotes,
-      createForm: { title: "", body: "" },
-    });
   },
 
   deleteNote: async (id) => {

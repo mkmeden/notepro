@@ -1,13 +1,33 @@
 import React from 'react'
 import authStore from '../stores/authStore'
+import { useToast } from '@chakra-ui/react';
 
 const Login = ({setLogin,login}) => {
   
   const store = authStore();
+  const toast = useToast();
+  const handleSubmit = (e)=> {
+
+    if(!store.loginForm.email.length || !store.loginForm.password.length)
+    {
+    e.preventDefault();
+      
+        return toast({
+          title: "Empty Fields.",
+          description: "Kindly fill all the fields",
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        });
+      
+    }
+    
+    store.login(e);
+  }
 
   return (
     <div className=" z-10 px-16 w-96 py-20 border-t-2 border-l-2 border-white bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-lg shadow-lg">
-      <form className="font-mont"  onSubmit={store.login}>
+      <form className="font-mont"  onSubmit={(e) => handleSubmit(e)}>
 
         <input
         name='email'
