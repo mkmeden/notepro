@@ -7,7 +7,7 @@ import axios from "axios";
 import { ChakraProvider } from "@chakra-ui/react";
 
 import { BrowserRouter } from "react-router-dom";
-axios.defaults.baseURL = "https://www.notepro-backend-h4st.vercel.app/";
+axios.defaults.baseURL = "https://notepro-backend-h4st.vercel.app/";
 axios.defaults.withCredentials = true;
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
