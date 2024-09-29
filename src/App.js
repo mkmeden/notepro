@@ -21,7 +21,7 @@ function App() {
   useEffect(() => {
     if(AuthStore.loggedIn ===null)
      AuthStore.checkAuth(); 
-  },[] );
+  },[AuthStore.loggedIn] );
 
   if (AuthStore.loggedIn === null || loading) {
     return <Loader />;
